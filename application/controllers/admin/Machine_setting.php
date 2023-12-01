@@ -37,6 +37,13 @@
             'machine_code' => $machine_code
         );
         $this->Machine_model->update_machine($data);
+
+        $path =  "/home/linaro/machine_code/machine_code.txt";
+        if (!write_file($path, $machine_code)) {
+            echo 'Unable to write the file';
+        } else {
+            echo 'File written!';
+        }
     }
     public function update_selection()
     {

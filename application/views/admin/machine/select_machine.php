@@ -5,8 +5,10 @@
 </style>
 <div class="container mt-3">
     <div class="text-center">
+
         <h2>Please select machine program</h2>
         <input type="text" id="machine_code" value="<?= $machine[0]->machine_code ?>" style="text-align: center;">
+        <button class="btn btn-info">Save</button>
     </div>
 
     <div class="row mt-3">
