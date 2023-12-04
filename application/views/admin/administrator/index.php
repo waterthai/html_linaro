@@ -21,11 +21,12 @@
                             <h4>Online Setting <span class="float-end"><i class="fa fa-angle-right fa-lg"></i></span></h4>
                         </div>
                     </div>
-                    <div class="col-md-12 mt-3" style="display: none;">
+                    <div class="col-md-12 mt-3" onclick="night_time_setting()" style="cursor:pointer">
                         <div class="box-showing">
-                            <h4>Update Version <span class="float-end"><i class="fa fa-angle-right fa-lg"></i></span></h4>
+                            <h4>Night time <span class="float-end"><i class="fa fa-angle-right fa-lg"></i></span></h4>
                         </div>
                     </div>
+
                     <div class="col-md-12 mt-3" onclick="goto_page_about('admin/Administrator/about_hottub');" style="cursor:pointer">
                         <div class="box-showing">
                             <h4>About System <span class="float-end"><i class="fa fa-angle-right fa-lg"></i></span></h4>
@@ -41,6 +42,7 @@
                             <h4>Update Systems <span class="float-end"><i class="fa fa-angle-right fa-lg"></i></span></h4>
                         </div>
                     </div>
+
                     <div class="col-md-12 mt-3" style="display: none;">
                         <div class="box-showing" onclick="signout()">
                             <h4>Signout <span class="float-end"><i class="fa fa-angle-right fa-lg"></i></span></h4>
@@ -51,6 +53,7 @@
         </div>
     </div>
 </div>
+
 <?php $this->load->view('admin/administrator/modal') ?>
 <input type="hidden" id="urlPath" value="<?= $url_online ?>">
 <input type="hidden" id="machine_code" value="<?= $machine_code ?>">
@@ -511,5 +514,25 @@
                 });
             });
         });
+    }
+
+    function night_time_setting() {
+        $('#txt_error_night_time').hide();
+        // $('#modal_night_time_setting').modal('toggle');
+        $('#modal_night_time_permission').modal('toggle');
+    }
+
+    function check_permission_night_time() {
+        $.post("<?= base_url('admin/Administrator/check_permission') ?>", {
+            user_permission: $('#user_permission_night_time').val(),
+            pwd_permission: $('#pwd_permission_night_time').val()
+        }, function(data) {
+            if (data == "true") {
+                $('#modal_night_time_permission').modal('hide');
+                $('#modal_night_time_setting').modal('toggle');
+            } else {
+                $('#txt_error_night_time').show();
+            }
+        })
     }
 </script>

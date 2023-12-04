@@ -92,5 +92,8 @@
     {
         echo json_encode($this->Rest_api_model->get_heatpump());
     }
-    
+    public function get_night_time_mode()
+    {
+        echo json_encode($this->Rest_api_model->get_setting_night_time());
+    }
 }

@@ -53,4 +53,8 @@
     {
         return $this->db->select('*')->from('heatpump')->get()->result();
     }
+    public function get_setting_night_time()
+    {
+        return $this->db->select('*')->from('night_time')->where('night_time_id', 1)->get()->result();
+    }
 }

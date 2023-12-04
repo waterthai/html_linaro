@@ -17,12 +17,14 @@
     {
         $setting = $this->Advance_model->get_setting();
         $machine_code = $this->Advance_model->get_machinecode();
+        $night_time = $this->Advance_model->get_night_time_setting();
         $result = array(
             'path_file' => 'administrator/index',
             'menu_name' => 'Administrator',
             'setting' => $setting,
             'url_online' => $this->url_online,
-            'machine_code' => $machine_code
+            'machine_code' => $machine_code,
+            'night_time' => $night_time
         );
         $this->load->view('admin/index', $result);
     }
@@ -55,5 +57,19 @@
         $user_permission = $this->input->post('user_permission');
         $pwd_permission = $this->input->post('pwd_permission');
         $this->Advance_model->change_user_password($user_permission, $pwd_permission);
+    }
+    public function setting_night_time()
+    {
+        $sm_night_time = $this->input->post('sm_night_time');
+        $sm_night_status = $this->input->post('sm_night_status');
+        $night_time_start_time = $this->input->post('night_time_start_time');
+        $night_time_stop_time = $this->input->post('night_time_stop_time');
+        $data = array(
+            'night_time_enable' => $sm_night_time,
+            'night_time_status' => $sm_night_status,
+            'night_time_start' => $night_time_start_time,
+            'night_time_end' => $night_time_stop_time
+        );
+        $this->Advance_model->setting_night_time($data);
     }
 }

@@ -34,6 +34,7 @@
         }
     }
 </style>
+
 <div class="modal" id="modal_online" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -273,5 +274,120 @@
         $('#txt_error_change_new').hide();
         $('#txt_error_online').hide();
         $('#txt_error_update').hide();
+        $('#txt_error_night_time').hide();
+    }
+</script>
+
+<div class="modal" id="modal_night_time_permission" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" style="color:black">Permission</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label style="color: black;">Username</label>
+                    <input type="text" class="form-control" id="user_permission_night_time" onclick="clear_permission_error()">
+                </div>
+                <div class="form-group">
+                    <label style="color: black;">Password</label>
+                    <input type="password" class="form-control" id="pwd_permission_night_time" onclick="clear_permission_error()">
+                </div>
+                <p style="color:red; font-size:14px" id="txt_error_night_time">The name or password is incorrect.</p>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onclick="check_permission_night_time()">Confirm</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="modal_night_time_setting" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" style="color:black">Setting Night Time</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <h5 style="color: black;">Switch Night Time Machine</h5>
+                <div class="switch-toggle switch-3 switch-candy">
+                    <input id="on" name="sm_night_time" type="radio" <?= ($night_time) ? $night_time[0]->night_time_enable == 0 ? 'checked' : '' : '' ?> value="0" />
+                    <label for="on" onclick="">Désactivé</label>
+                    <input id="off" name="sm_night_time" type="radio" <?= ($night_time) ? $night_time[0]->night_time_enable == 1 ? 'checked' : '' : '' ?> value="1" />
+                    <label for="off" onclick="">Activé</label>
+
+                    <a></a>
+                </div>
+                <h5 class="mt-3" style="color: black;">Status Night Time</h5>
+                <div class="switch-toggle switch-3 switch-candy">
+                    <input id="open" name="sm_night_status" type="radio" <?= ($night_time) ? $night_time[0]->night_time_status == 0 ? 'checked' : '' : '' ?> value="0" />
+                    <label for="open" onclick="">Désactivé</label>
+                    <input id="close" name="sm_night_status" type="radio" <?= ($night_time) ? $night_time[0]->night_time_status == 1 ? 'checked' : '' : '' ?> value="1" />
+                    <label for="close" onclick="">Activé</label>
+                    <a></a>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <labe style="color:black">Start Time </labe>
+                            <input type="time" class="form-control" id="night_time_start_time" name="heapump_start_time" value="<?=($night_time)? $night_time[0]->night_time_start:'' ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label style="color:black">End Time </label>
+                            <input type="time" class="form-control" id="night_time_stop_time" name="heapump_end_time" value="<?= ($night_time)?$night_time[0]->night_time_end:'' ?>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onclick="save_night_time_setting()">Confirm</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function save_night_time_setting() {
+        var sm_night_time = $('input[name="sm_night_time"]:checked').val();
+        var sm_night_status = $('input[name="sm_night_status"]:checked').val();
+        var night_time_start_time = $('#night_time_start_time').val();
+        var night_time_stop_time = $('#night_time_stop_time').val();
+
+        $.post("<?= base_url('admin/Administrator/setting_night_time') ?>", {
+            sm_night_time: sm_night_time,
+            sm_night_status: sm_night_status,
+            night_time_start_time: night_time_start_time,
+            night_time_stop_time: night_time_stop_time
+        }, function() {
+            $('#modal_night_time_setting').modal('hide');
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
     }
 </script>

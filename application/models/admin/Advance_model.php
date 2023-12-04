@@ -114,4 +114,17 @@
     {
         return $this->db->select('*')->from('machine_option')->get()->result();
     }
+    public function setting_night_time($data)
+    {
+        $checking = $this->db->select('*')->from('night_time')->get()->result();
+        if (count($checking) > 0) {
+            $this->db->where('night_time_id', 1)->update('night_time', $data);
+        } else {
+            $this->db->insert('night_time', $data);
+        }
+    }
+    public function get_night_time_setting()
+    {
+       return $this->db->select('*')->from('night_time')->where('night_time_id', 1)->get()->result();
+    }
 }
