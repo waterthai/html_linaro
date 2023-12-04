@@ -114,9 +114,9 @@
         $.getJSON("<?= base_url('Read_status/read_plc_in') ?>", function(data) {
             $.each(data, function(k, v) {
                 if (v == "False") {
-                    data_in += "0";
+                    data_in += "N";
                 } else {
-                    data_in += "1";
+                    data_in += "F";
                 }
             })
             $('#plc_in').html(data_in);
@@ -128,9 +128,9 @@
         $.getJSON("<?= base_url('Read_status/read_plc') ?>", function(data) {
             $.each(data, function(k, v) {
                 if (v == "False") {
-                    data_in += "0";
+                    data_in += "N";
                 } else {
-                    data_in += "1";
+                    data_in += "F";
                 }
             })
             $('#plc_out').html(data_in);
@@ -142,9 +142,9 @@
         $.getJSON("<?= base_url('Read_status/relay_8_ch') ?>", function(data) {
             $.each(data, function(k, v) {
                 if (v == "False") {
-                    data_in += "0";
+                    data_in += "N";
                 } else {
-                    data_in += "1";
+                    data_in += "F";
                 }
             })
             $('#relay_ch').html(data_in);
